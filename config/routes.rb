@@ -1,10 +1,40 @@
 Rails.application.routes.draw do
+
+  #root "logins#new"
+  root "login#login"
+  post "login", to: "login#create"
+  concern :match do
+    resources :matches
+  end
+  resources :tournaments do
+    get :reports, on: :collection
+    match :schedule, to: "tournaments#schedule", via: [:get, :post]
+  end
+
+  resources :players
+
+  resources :games do 
+    concerns :match
+  end
+
+  scope module: "admin" do
+    resources :tournaments
+  end
+
+  scope "admin" do
+    resources :tournaments
+  end
+  
+  
+  
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

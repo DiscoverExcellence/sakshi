@@ -1,0 +1,9 @@
+=form_for match, url: game_match_path(game,match) do |f|
+  =f.label "Venue"
+  =f.text_field :venue
+  %br
+  =f.label "Date of Match"
+  =f.text_field :played_on
+  %br
+  =f.submit
+

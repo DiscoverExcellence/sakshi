@@ -1,0 +1,8 @@
+%tr
+  %td
+    = game.name
+  %td
+    = link_to "Show Details", game_path(game)
+    = link_to "Edit", edit_game_path(game)
+    = link_to "Delete", game, method: :delete, data: { confirm: "Are you sure?" }
+    = link_to "List Match", game_matches_path(game)

@@ -1,0 +1,14 @@
+%h3 Edit the game
+= render "form", {game: @game}
+
+-#=form_for @game_edit do |f|
+  =f.label "Name"
+  =f.text_field :name
+  %br
+  =f.label "Description"
+  =f.text_field :description
+  %br
+  =f.label "Scoring Points"
+  =f.text_field :scoring_pts
+  %br
+  =f.submit

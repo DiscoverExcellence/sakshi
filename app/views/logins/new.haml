@@ -1,0 +1,9 @@
+%h3 Login Page
+=form_for @user, url: logins_path do |f|
+  =f.label "Email ID"
+  =f.text_field :email
+  %br
+  =f.label "Password"
+  =f.password_field :password
+  %br
+  =f.submit

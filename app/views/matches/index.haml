@@ -1,0 +1,18 @@
+%h3 The different matches
+
+%table{:border => "1"}
+  %tbody
+    %tr
+      %th matches
+    - @match_list.each do |match|
+      %tr
+        %td
+          = match.venue
+        %td
+          = match_date(match.played_on)
+        %td
+          = link_to "Show Details", game_match_path(@game,match)
+          = link_to "Edit", edit_game_match_path(@game,match)
+        -#  = link_to "Delete", match(@game,match), method: :delete, data: { confirm: "Are you sure?" }
+
+=link_to "Create Match", new_game_match_path(@game)

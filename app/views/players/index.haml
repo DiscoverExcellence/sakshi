@@ -1,0 +1,14 @@
+%h3 The different players
+%table{:border => "1"}
+  %tbody
+    %tr
+      %th Players
+    - @player_list.each do |player|
+      %tr
+        %td
+          = player.name
+        %td
+          = link_to "Show Details", player_path(player)
+          = link_to "Edit", edit_player_path(player)
+          = link_to "Delete", player, method: :delete, data: { confirm: "Are you sure?" }
+=link_to "Create Player", new_player_path

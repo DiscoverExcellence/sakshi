@@ -1,0 +1,14 @@
+%table{:border => "1"}
+  %tbody
+    %tr
+      %th Tournament
+      %th Matches
+      %th Winner
+    - @total_tournament.each do |t|
+      %tr
+        %td
+          = t.name
+        %td
+          = t.matches.count
+        %td
+          = t.winner
