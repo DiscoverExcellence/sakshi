@@ -1,14 +1,27 @@
-%h3 The different players
-%table{:border => "1"}
-  %tbody
-    %tr
-      %th Players
-    - @player_list.each do |player|
-      %tr
-        %td
-          = player.name
-        %td
-          = link_to "Show Details", player_path(player)
-          = link_to "Edit", edit_player_path(player)
-          = link_to "Delete", player, method: :delete, data: { confirm: "Are you sure?" }
-=link_to "Create Player", new_player_path
+= render "/shared/navbar"
+.container
+  .row-marketing
+    .col-lg-8
+      .jumbotron
+        .container
+          %table.table
+            %thead
+              %tr
+                %th Players
+            %tbody
+              - @player_list.each do |player|
+                %tr
+                  %td
+                    = player.name
+                  %td
+                    = link_to "Show Details", player_path(player)
+                    = link_to "Edit", edit_player_path(player)
+                    = link_to "Delete", player, method: :delete, data: { confirm: "Are you sure?" }
+    .col-lg-4
+      .container 
+        .center
+          = image_tag("new_game.jpg" , class: "img-circle", width: "200", height: "200")
+          .center
+            %h3 Enter a new player
+            %a{ class:"btn btn-primary", href: "/players/new", role:"button"} New Player
+

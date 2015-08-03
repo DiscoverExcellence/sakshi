@@ -1,6 +1,37 @@
-%table.table
-  %tbody
-    %tr
-      %th Games
-    =render @game
-= link_to "New Game", new_game_path
+.modal.fade#confirmModal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button{'type': "button", 'class': "close", 'data-dismiss': "modal", 'aria-label': "Close"}
+          %span{'aria-hidden':"true"}
+        %h4{'class': "modal-title"} Model Title
+      .model-body
+        %p Are You Sure?
+      .model-footer
+        %button{'type': "button", 'class': "btn btn-default", 'data-dismiss':"modal"} No
+        %a{id:"delete_modal_link", :"data-method" => :delete, type: "button", href:"", class: "btn btn-primary"} Yes
+= render "shared/navbar"
+.container  
+  %h2 Gaming Zone
+  %p Want to know who is better? you or your friend?
+  %p Choose the game you wish to play with your friends, play matches
+  %p and win points!!
+.container
+  .row-marketing
+    .col-lg-8
+      .jumbotron
+        .container
+          %table.table
+            %thead
+              %tr
+                %th List of Games
+            %tbody    
+              =render @game
+    .col-lg-4
+      .container 
+        .center
+          = image_tag("new_game.jpg" , class: "img-circle", width: "270", height: "270")
+          .center
+            %h3 Enter a new game to play
+            %a{ class:"btn btn-primary", href: "/games/new", role:"button"} New Game
+

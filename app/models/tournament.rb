@@ -11,15 +11,21 @@ class Tournament < ActiveRecord::Base
 =end
 
   def winner
-    winner_id = Score.group(:player_id).having(:tournament_id == 24).sum(:points).max_by{|k,v| v}.first
+    tnmt_id = self.id
+    winner_id = Score.group(:player_id).having(:tournament_id == tnmt_id).sum(:points).max_by{|k,v| v}.first
     p Player.find(winner_id).name
   end
 
   def top_three
-    winner_list = Score.group(:player_id).having(:tournament_id == 24).sum(:points).max_by(3){|k,v| v}.flatten
+    tnmt_id = self.id
+    winner = []
+    winner_list = Score.group(:player_id).having(:tournament_id == tnmt_id).sum(:points).max_by(3){|k,v| v}.flatten
     winner_list.each_with_index do |winner_id,index|
-     p Player.find(winner_list[index]).name if(index.even?)
+      if(index.even?)
+        winner << (Player.find(winner_list[index]).name)
+      end
     end
+    p winner
   end
 
 end
