@@ -5,4 +5,5 @@
     = link_to "Show Details", game_path(game), color: "black"
     = link_to "Edit", edit_game_path(game)
     = link_to "Delete", "#confirmModal" , 'data-toggle': "modal", class: 'delete_link', "data-id": game.id
-    = link_to "List Match", game_matches_path(game)
+    = link_to "List Individual Match", game_matches_path(game)
+    = link_to "List Tournaments", game_tournaments_path(game)

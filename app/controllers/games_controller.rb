@@ -17,7 +17,7 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
-    @game.matches.build
+   # @game.matches.build
   end
 
   def index

@@ -1,3 +1,3 @@
 %h3 Edit the match
-= render partial: "form", locals: {match: @match, game: @game}
+= render partial: "form", locals: {match: @match, game: @game, url: game_match_path(@game,@match)}
 

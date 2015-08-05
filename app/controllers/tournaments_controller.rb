@@ -2,19 +2,24 @@ class TournamentsController < ApplicationController
 
   def new
     @tournament = Tournament.new
+    @game = Game.find(params[:game_id])
+    @tournament.matches.build
   end
 
   def index
-    @tournament_list = Tournament.all
+    @game = Game.find(params[:game_id])
+    @tournament_list = @game.tournaments
   end
 
   def create
-   @tournament = Tournament.new(allowed_params)
-   if @tournament.save
-     redirect_to tournaments_path
-   else
+    @game = Game.find(params[:game_id])
+    @tournament = @game.tournaments.build(allowed_params)
+    if @tournament.save!
+      flash[:notice] = "Created Successfully"
+      redirect_to game_tournaments_path(@game)
+    else
       render :new
-   end
+    end
   end
 
   def show
@@ -22,13 +27,16 @@ class TournamentsController < ApplicationController
   end
 
   def edit
-     @tournament_edit = Tournament.find(params[:id])
+    @game = Game.find(params[:game_id])
+    @tournament_edit = Tournament.find_by(game_id: params[:game_id], id: params[:id])
+
   end
 
   def update
     @tournament_edit = Tournament.find(params[:id])
     if @tournament_edit.update_attributes(allowed_params)
-      redirect_to tournaments_path
+      flash[:notice] = "Updated Successfully"
+      redirect_to game_tournaments_path
     else
       render :edit
     end
@@ -39,7 +47,7 @@ class TournamentsController < ApplicationController
   end
 
   def allowed_params
-    params.require(:tournament).permit!()
+    params.require(:tournament).permit(:name)
   end
 
   def winner

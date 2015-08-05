@@ -3,6 +3,8 @@ class Tournament < ActiveRecord::Base
   has_many :matches, dependent: :destroy
   belongs_to :game
   has_many :scores, dependent: :destroy
+  accepts_nested_attributes_for :matches
+
 
 =begin
   Match.where(tournament_id: 24).each do |match|

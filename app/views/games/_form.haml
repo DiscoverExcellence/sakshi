@@ -9,14 +9,14 @@
   =f.label "Scoring Points"
   =f.text_field :scoring_pts
   %br
-  %div#add_more
+  -#%div#add_more
     =f.fields_for :matches do |m|
       %h3 Match details 
       =m.label "Venue"
       =m.text_field :venue
-  %br
-  %p 
+  -#%br
+  -#%p 
     =f.link_to_add("Add More", :matches, class: "btn btn-primary")
-  %br
+  -#%br
   =f.submit
 

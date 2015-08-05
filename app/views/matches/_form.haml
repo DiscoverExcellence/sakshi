@@ -1,9 +1,18 @@
-=form_for match, url: game_match_path(game,match) do |f|
+=nested_form_for match, url: url do |f|
   =f.label "Venue"
   =f.text_field :venue
   %br
   =f.label "Date of Match"
   =f.text_field :played_on
+  %br
+  =f.fields_for :players do |p|
+    %h3 player details 
+    =p.label "Name"
+    =p.text_field :name
+    %br
+    =p.label "info"
+    =p.text_field :info
+    =p.link_to_remove "remove player"
   %br
   =f.submit
 

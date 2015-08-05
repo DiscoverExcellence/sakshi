@@ -6,27 +6,38 @@ Rails.application.routes.draw do
   devise_for :users
   root "games#index"
   post "login", to: "login#create"
+ 
   concern :match do
-    resources :matches
+    resources :matches do 
+      resources :players
+    end
   end
-  resources :tournaments do
-    get :reports, on: :collection
-    match :schedule, to: "tournaments#schedule", via: [:get, :post]
+
+  
+  resources :games do 
+    concerns :match
+    resources :tournaments do
+      concerns :match 
+    end
   end
+
+
+  #resources :tournaments do
+  #  get :reports, on: :collection
+  #  match :schedule, to: "tournaments#schedule", via: [:get, :post]
+  #end
 
   resources :players
 
-  resources :games do 
-    concerns :match
-  end
 
-  scope module: "admin" do
-    resources :tournaments
-  end
+#  scope module: "admin" do
+#    resources :tournaments
+#  end
 
-  scope "admin" do
-    resources :tournaments
-  end
+#  scope "admin" do
+#    resources :tournaments
+#    resources :matches
+#  end
   
   
   

@@ -1,5 +1,18 @@
-=form_for(zone) do |f|
+=nested_form_for tournament, url: url  do |f|
   =f.label "Name"
   =f.text_field :name
+  %br
+  %div#add_more
+    =f.fields_for :matches do |m|
+      %h3 Match details 
+      =m.label "Venue"
+      =m.text_field :venue
+      %br
+      =m.label "Date of Match"
+      =m.text_field :played_on
+      =m.link_to_remove "remove match"
+  %br
+  %p
+    =f.link_to_add("Add More", :matches, class: "btn btn-primary")
+  %br
   =f.submit
-

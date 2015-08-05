@@ -1,2 +1,2 @@
 %h3 Edit the tournament
-= render "form", {zone: @tournament_edit}
+= render "form", {tournament: @tournament_edit, game: @game, url: game_tournament_path(@game,@tournament_edit)}

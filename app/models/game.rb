@@ -5,6 +5,6 @@ class Game < ActiveRecord::Base
   validates :name, uniqueness: true 
   has_many :matches, dependent: :destroy
   has_many :tournaments, dependent: :destroy
-  accepts_nested_attributes_for :matches
+ # accepts_nested_attributes_for :matches
 end
 
