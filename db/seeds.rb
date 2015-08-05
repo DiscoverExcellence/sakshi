@@ -43,5 +43,5 @@ matches.each do |venue|
 end
 =end
 
-User.create(email: "sakshi@joshsoftware.com" , password: "josh123", password_confirmation: "josh123") 
+#User.create(email: "sakshi@joshsoftware.com" , password: "josh123", password_confirmation: "josh123") 
 

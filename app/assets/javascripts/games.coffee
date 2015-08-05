@@ -7,13 +7,8 @@ $ ->
     console.log($(this).data 'id')
     $('#delete_modal_link').attr("href","/games/"+$(this).data 'id')
     return
-   return
-
-
-#    $('document').ready ->
-#      $('.delete-game').click ->
-#          console.log($(this).data('game-id'))
-#              $('#delete_game_link').attr("href","/games/"+$(this).data('game-id'))
-#                  return
-#                    return
+   
+    
+  $('#add_another').click ->
+   $('#add_more').nestedAttributes bindAddTo: $('#add_another')
 

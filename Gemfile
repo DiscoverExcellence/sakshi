@@ -31,6 +31,15 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+#devise for authorization
+gem 'devise', '~> 3.5.1'
+
+#nested_form
+gem 'nested_form', '~> 0.3.2'
+
+#cancancan for authorization
+gem 'cancancan', '~> 1.12.0'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

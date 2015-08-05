@@ -5,6 +5,7 @@ class LoginController < ApplicationController
   end
 
   def create
+=begin
    # count = 0
    p params[:id]
     @user = User.find_by(email: params[:user][:email])
@@ -17,6 +18,7 @@ class LoginController < ApplicationController
       flash[:notice] = "Authentication failed"
       redirect_to root_path
     end
+=end
   end
 
 end

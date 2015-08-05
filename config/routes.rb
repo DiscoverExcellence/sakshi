@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+ # devise_scope :user do
+ #     get "/users/sign_in" => "devise/sessions#new"
+ # end
 
-  #root "logins#new"
-  root "login#login"
+  devise_for :users
+  root "games#index"
   post "login", to: "login#create"
   concern :match do
     resources :matches

@@ -1,17 +1,18 @@
 #require 'bcrypt'
 
 class User < ActiveRecord::Base
- has_secure_password
- # attr_accessor :password_digest
- #include BCrypt
-=begin
-  def password
-    @password ||= Password.new(password_digest)
-  end
+  
+  enum role: [:user, :tnmt_manager, :player_manager, :admin]
+  after_initialize :set_default_role, :if => :new_record?
 
-  def password=(new_password)
-    @password = Password.create(new_password)
-    self.password_digest = @password
+  def set_default_role
+    self.role ||= :user
   end
-=end
+  
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+ #has_secure_password
+ # attr_accessor :password_digest
 end

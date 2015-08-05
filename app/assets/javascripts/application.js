@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require_tree
+//= require jquery_nested_form
 
 window.setTimeout(function(){
 document.getElementsByClassName("flash")[0].style.display="none"},3000)
