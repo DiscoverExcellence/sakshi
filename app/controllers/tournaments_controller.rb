@@ -47,7 +47,7 @@ class TournamentsController < ApplicationController
   end
 
   def allowed_params
-    params.require(:tournament).permit(:name)
+    params.require(:tournament).permit(:name, matches_attributes: [:id, :game_id, :venue, :played_on , :_destroy])
   end
 
   def winner

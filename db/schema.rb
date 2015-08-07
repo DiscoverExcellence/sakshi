@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805055211) do
+ActiveRecord::Schema.define(version: 20150806081145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,10 +41,7 @@ ActiveRecord::Schema.define(version: 20150805055211) do
     t.string   "info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "match_id"
   end
-
-  add_index "players", ["match_id"], name: "index_players_on_match_id", using: :btree
 
   create_table "scores", force: :cascade do |t|
     t.integer  "points"
@@ -94,7 +91,6 @@ ActiveRecord::Schema.define(version: 20150805055211) do
 
   add_foreign_key "matches", "games"
   add_foreign_key "matches", "tournaments"
-  add_foreign_key "players", "matches"
   add_foreign_key "scores", "matches"
   add_foreign_key "scores", "players"
   add_foreign_key "scores", "tournaments"

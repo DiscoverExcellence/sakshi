@@ -1,3 +1,6 @@
 %h3 Edit the match
-= render partial: "form", locals: {match: @match, game: @game, url: game_match_path(@game,@match)}
+- if(params[:game_id] && params[:tournament_id])
+  = render "form", {match: @match, game: @game, tournament: @tournament, url: game_tournament_match_path(@game, @tournament, @match)}
+- else   
+  = render partial: "form", locals: {match: @match, game: @game, url: game_match_path(@game,@match)}
 

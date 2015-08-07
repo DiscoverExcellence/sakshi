@@ -1,26 +1,40 @@
 class MatchesController < ApplicationController
   
   def new
-    @match = Match.new
     @game = Game.find(params[:game_id])
+    @tournament = Tournament.find_by(game_id: params[:game_id], id: params[:tournament_id])
+    @match = Match.new
     @match.players.build
     @match.players.build
   end
 
   def index
-    @game = Game.find(params[:game_id])
-    @match_list = @game.matches
-   # p params[:tournament_id]
-   # @tournament = Tournament.find_by(game_id: params[:game_id], tournament_id: params[:tournament_id])
-   # @match_tournament_list = @tournament.matches
+    if (params[:game_id] && params[:tournament_id])
+      @game = Game.find(params[:game_id])
+      @tournament = Tournament.find_by(game_id: params[:game_id], id: params[:tournament_id])
+      @match_list = @tournament.matches
+    else
+      @game = Game.find(params[:game_id])
+      @match_list = @game.matches
+    end
   end
 
   def create
     @game = Game.find(params[:game_id])
-    @match = @game.matches.build(allowed_params)
-    if @match.save
+    @tournament = Tournament.find_by(game_id: params[:game_id], id: params[:tournament_id])
+    if(params[:tournament_id])
+      @match = @tournament.matches.build(allowed_params)
+      @match.game_id = params[:game_id]
+    else
+      @match = @game.matches.build(allowed_params)
+    end
+    if @match.save!
       flash[:notice] = "Created Successfully"
-      redirect_to game_matches_path(@game)
+      if(params[:tournament_id])
+        redirect_to game_tournament_matches_path(@game, @tournament)
+      else
+        redirect_to game_matches_path(@game) 
+      end
     else
       render :new
     end
@@ -32,7 +46,11 @@ class MatchesController < ApplicationController
 
   def edit
     @game = Game.find(params[:game_id])
-    @match = Match.find_by(game_id: params[:game_id], id: params[:id])
+    #if(params[:tournament_id])
+     # @match = Match.find_by(game_id: params[:game_id], tournament_id: params[:tournament_id], id: params[:id])
+   # else
+      @match = Match.find_by(game_id: params[:game_id], id: params[:id])
+      # end
   end
 
   def update
@@ -50,7 +68,7 @@ class MatchesController < ApplicationController
   end
 
   def allowed_params
-    params.require(:match).permit(:venue, :played_on)
+    params.require(:match).permit!()
   end
 
 end

@@ -16,17 +16,25 @@
                   %td
                     = match_date(match.played_on)
                   %td
-                    = link_to "Show Details", game_match_path(@game,match)
-                    = link_to "Edit", edit_game_match_path(@game,match)
-                    = link_to "List Players", game_match_players_path(@game,match)
-                  -#  = link_to "Delete", url: game_match(@game,match), method: :delete, data: { confirm: "Are you sure?" }
+                    - if (params[:game_id] && params[:tournament_id])
+                      = link_to "Show Details", game_tournament_match_path(@game, @tournament, match)
+                      = link_to "Edit", edit_game_tournament_match_path(@game, @tournament, match)
+                      = link_to "List Players", game_tournament_match_players_path(@game, @tournament, match)
+                    - else
+                      = link_to "Show Details", game_match_path(@game,match)
+                      = link_to "Edit", edit_game_match_path(@game,match)
+                      = link_to "List Players", game_match_players_path(@game,match)
+                      -#  = link_to "Delete", url: game_match(@game,match), method: :delete, data: { confirm: "Are you sure?" }
     .col-lg-4
       .container 
         .center
           = image_tag("new_game.jpg" , class: "img-circle", width: "200", height: "200")
           .center
             %h3 Enter a new Match
-            %a{ class:"btn btn-primary", href: new_game_match_path(@game), role:"button"} New Match
+            - if (params[:game_id] && params[:tournament_id])
+              %a{ class:"btn btn-primary", href: new_game_tournament_match_path(@game, @tournament), role:"button"} New Match
+            - else  
+              %a{ class:"btn btn-primary", href: new_game_match_path(@game), role:"button"} New Match
 
 
 -#= render "/shared/navbar"

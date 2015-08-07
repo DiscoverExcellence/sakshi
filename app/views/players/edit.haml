@@ -1,2 +1,7 @@
 %h3 Edit the player
-= render "form", {zone: @player_edit}
+- if (params[:tournament_id])
+  = render "form", {player: @player_edit, tournament: @tournament, match: @match, game: @game, url: game_tournament_match_player_path(@game, @tournament, @match, @player_edit)}
+- elsif (params[:match_id] && !params[:tournament_id])
+  = render "form", {player: @player_edit, match: @match, game: @game, url: game_match_player_path(@game, @match, @player_edit)}
+- else
+  = render "form", {player: @player_edit, url: player_path(@player_edit)}

@@ -1,2 +1,5 @@
 %h3 Create new Match
-= render "form", {match: @match, game: @game, url: game_matches_path(@game)}
+- if(params[:game_id] && params[:tournament_id])
+  = render "form", {match: @match, game: @game, tournament: @tournament, url: game_tournament_matches_path(@game, @tournament)}
+- else   
+  = render "form", {match: @match, game: @game, url: game_matches_path(@game)}
