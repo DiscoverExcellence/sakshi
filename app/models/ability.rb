@@ -4,12 +4,25 @@ class Ability
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
-   # user ||= User.new # guest user (not logged in)
-     # if user.role == "admin"
-       # can :manage, :all
-     # else
-       # can :read, :all
-      #end
+    user ||= User.new # guest user (not logged in)
+      alias_action :update, :destroy, :to => :modify
+      alias_action :create, :read, :to => :assign
+      if user.role == "admin"
+        can :manage, :all
+      else
+        can :read, :all
+      end
+
+      if user.role == "tournament_manager"
+        can :modify,  Tournament, :user_id => user.id
+        can :assign, Tournament
+      end
+
+      if user.role == "player_manager"
+        can :modify, Player, :user_id => user.id
+        can :assign, Player
+      end
+
 
 
     #

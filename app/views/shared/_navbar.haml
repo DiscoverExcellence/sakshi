@@ -6,6 +6,8 @@
           %li 
             %a{ href:"/games"}Home
           %li
+            %a{ href: players_path }Players
+          %li
             = link_to('Sign Out', destroy_user_session_path, :method => :delete)
 -#        %li 
 -#           %a{ href:"#contact"}Contact Us

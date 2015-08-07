@@ -2,6 +2,7 @@ class Tournament < ActiveRecord::Base
   validates :game_id, presence: true
   has_many :matches, dependent: :destroy
   belongs_to :game
+  belongs_to :user
   has_many :scores, dependent: :destroy
   accepts_nested_attributes_for :matches
 

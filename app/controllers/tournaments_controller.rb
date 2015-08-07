@@ -14,6 +14,7 @@ class TournamentsController < ApplicationController
   def create
     @game = Game.find(params[:game_id])
     @tournament = @game.tournaments.build(allowed_params)
+    @tournament.user_id = current_user.id
     if @tournament.save!
       flash[:notice] = "Created Successfully"
       redirect_to game_tournaments_path(@game)

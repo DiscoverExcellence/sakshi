@@ -16,27 +16,31 @@
                   %td
                     - if (params[:tournament_id])
                       = link_to "Show Details", game_tournament_match_player_path(@game, @tournament, @match, player)
-                      = link_to "Edit", edit_game_tournament_match_player_path(@game, @tournament, @match, player)
-                      = link_to "Delete", game_tournament_match_player_path(@game, @tournament, @match, player), method: :delete, data: { confirm: "Are you sure?" }
+                      - if can? :modify, player
+                        = link_to "Edit", edit_game_tournament_match_player_path(@game, @tournament, @match, player)
+                        = link_to "Delete", game_tournament_match_player_path(@game, @tournament, @match, player), method: :delete, data: { confirm: "Are you sure?" }
                     - elsif (params[:match_id] && !params[:tournament_id]) 
                       = link_to "Show Details", game_match_player_path(@game, @match, player)
-                      = link_to "Edit", edit_game_match_player_path(@game, @match, player)
-                      = link_to "Delete", game_match_player_path(@game, @match, player), method: :delete, data: { confirm: "Are you sure?" }
+                      - if can? :modify, player
+                        = link_to "Edit", edit_game_match_player_path(@game, @match, player)
+                        = link_to "Delete", game_match_player_path(@game, @match, player), method: :delete, data: { confirm: "Are you sure?" }
                     - else 
                       = link_to "Show Details", player_path(player)
-                      = link_to "Edit", player_path(player)
-                      = link_to "Delete", player_path(player), method: :delete, data: { confirm: "Are you sure?" }
+                      - if can? :modify, player
+                        = link_to "Edit", edit_player_path(player)
+                        = link_to "Delete", player_path(player), method: :delete, data: { confirm: "Are you sure?" }
     .col-lg-4
       .container 
         .center
           = image_tag("new_game.jpg" , class: "img-circle", width: "200", height: "200")
           .center
-            %h3 Enter a new player
-            - if (params[:tournament_id])
-              %a{ class:"btn btn-primary", href: new_game_tournament_match_player_path(@game, @tournament, @match), role:"button"} New Player
-            - elsif (params[:match_id] && !params[:tournament_id])
-              %a{ class:"btn btn-primary", href: new_game_match_player_path(@game, @match), role:"button"} New Player
-            -else
-              %a{ class:"btn btn-primary", href: new_player_path, role:"button"} New Player
+            - if can? :assign, Player
+              %h3 Enter a new player
+              - if (params[:tournament_id])
+                %a{ class:"btn btn-primary", href: new_game_tournament_match_player_path(@game, @tournament, @match), role:"button"} New Player
+              - elsif (params[:match_id] && !params[:tournament_id])
+                %a{ class:"btn btn-primary", href: new_game_match_player_path(@game, @match), role:"button"} New Player
+              -else
+                %a{ class:"btn btn-primary", href: new_player_path, role:"button"} New Player
 
 

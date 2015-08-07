@@ -1,19 +1,21 @@
 class PlayersController < ApplicationController
 
   def new
-    @game = Game.find(params[:game_id])
-    @tournament = Tournament.find_by(game_id: params[:game_id], id: params[:tournament_id])
-    @match = Match.find_by(game_id: params[:game_id], id: params[:match_id])
+    if(params[:game_id])
+      @game = Game.find(params[:game_id])
+      @tournament = Tournament.find_by(game_id: params[:game_id], id: params[:tournament_id])
+      @match = Match.find_by(game_id: params[:game_id], id: params[:match_id])
+    end
     @player = Player.new
   end
 
   def index
-    if (params[:tournament_id])
+    if(params[:tournament_id])
       @game = Game.find(params[:game_id])
       @tournament = Tournament.find_by(game_id: params[:game_id], id: params[:tournament_id])
       @match = Match.find_by(game_id: params[:game_id], tournament_id: params[:tournament_id], id: params[:match_id])
       @player_list = @match.players
-    elsif (params[:match_id] && !params[:tournament_id])
+    elsif(params[:match_id] && !params[:tournament_id])
       @game = Game.find(params[:game_id])
       @match = Match.find_by(game_id: params[:game_id], id: params[:match_id])
       @player_list = @match.players
@@ -23,21 +25,24 @@ class PlayersController < ApplicationController
   end
 
   def create
-    @game = Game.find(params[:game_id])
-    @tournament = Tournament.find_by(game_id: params[:game_id], id: params[:tournament_id])
-    @match = Match.find_by(game_id: params[:game_id], id: params[:match_id])
-    if (params[:tournament_id])
+    if(params[:game_id])
+      @game = Game.find(params[:game_id])
+      @tournament = Tournament.find_by(game_id: params[:game_id], id: params[:tournament_id])
+      @match = Match.find_by(game_id: params[:game_id], id: params[:match_id])
+    end
+    if(params[:tournament_id])
       @match = Match.find_by(game_id: params[:game_id], tournament_id: params[:tournament_id], id: params[:match_id])
     end
 
     @player = Player.new(allowed_params)
-
+    @player.user_id = current_user.id
+    #@player.game_list.push allowed_params[:game_list]
     if @player.save
       Score.create(player_id: @player.id, match_id: params[:match_id])
       flash[:notice] = "Created Successfully"
-      if (params[:tournament_id])
+      if(params[:tournament_id])
         redirect_to game_tournament_match_players_path(@game, @tournament, @match)
-      elsif (params[:match_id] && !params[:tournament_id])
+      elsif(params[:match_id] && !params[:tournament_id])
         redirect_to game_match_players_path(@game,@match)
       else
         redirect_to players_path(@game)
@@ -52,17 +57,20 @@ class PlayersController < ApplicationController
   end
 
   def edit
-    @game = Game.find(params[:game_id])
-    p params[:tournament_id]
-    @tournament = Tournament.find_by(game_id: params[:game_id], id: params[:tournament_id])
-    @match = Match.find_by(game_id: params[:game_id], id: params[:match_id])
-    @player_edit = Player.find(params[:id])
+    if(params[:game_id])
+      @game = Game.find(params[:game_id])
+      @tournament = Tournament.find_by(game_id: params[:game_id], id: params[:tournament_id])
+      @match = Match.find_by(game_id: params[:game_id], id: params[:match_id])
+    end
+      @player_edit = Player.find(params[:id])
   end
 
   def update
-    @game = Game.find(params[:game_id])
-    @match = Match.find_by(game_id: params[:game_id], id: params[:match_id])
-    @tournament = Tournament.find_by(game_id: params[:game_id], id: params[:tournament_id])
+    if(params[:game_id])
+      @game = Game.find(params[:game_id])
+      @match = Match.find_by(game_id: params[:game_id], id: params[:match_id])
+      @tournament = Tournament.find_by(game_id: params[:game_id], id: params[:tournament_id])
+    end
     @player_edit = Player.find(params[:id])
     if @player_edit.update_attributes(allowed_params)
       flash[:notice] = "Updated Successfully"

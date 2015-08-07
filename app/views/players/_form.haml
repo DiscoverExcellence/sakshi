@@ -5,5 +5,11 @@
   =f.label "Information"
   =f.text_field :info
   %br
+  -#-if(params[:game_id])
+  -# = f.hidden_field :game_list, value: params[:game_id]
+  -#-else
+    =f.label "list of games"
+    = collection_check_boxes(:player, :game_list, Game.all, :id, :name)
+    -# =collection_select(:player, :game_list, Game.all, :id, :name, prompt: true)
+  %br
   =f.submit
-

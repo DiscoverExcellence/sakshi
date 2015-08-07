@@ -32,6 +32,7 @@
         .center
           = image_tag("new_game.jpg" , class: "img-circle", width: "270", height: "270")
           .center
-            %h3 Enter a new game to play
-            %a{ class:"btn btn-primary", href: "/games/new", role:"button"} New Game
+            - if can? :manage, Game
+              %h3 Enter a new game to play
+              %a{ class:"btn btn-primary", href: "/games/new", role:"button"} New Game
 
