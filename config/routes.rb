@@ -2,9 +2,8 @@ Rails.application.routes.draw do
  # devise_scope :user do
  #     get "/users/sign_in" => "devise/sessions#new"
  # end
-
+  
   devise_for :users
-  root "games#index"
   post "login", to: "login#create"
  
   concern :match do
@@ -28,7 +27,7 @@ Rails.application.routes.draw do
   #end
 
   resources :players
-
+  root "games#index"
 
 #  scope module: "admin" do
 #    resources :tournaments

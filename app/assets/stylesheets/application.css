@@ -18,3 +18,12 @@
   color: blue;
   font-size: 20px;
 }
+
+.custom-color{
+  background-color: #051148;
+  border-color: #140245;
+}
+
+.bg1-color{
+  background-color: #FFF;
+}

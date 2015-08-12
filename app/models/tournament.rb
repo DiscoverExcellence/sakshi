@@ -14,9 +14,12 @@ class Tournament < ActiveRecord::Base
 =end
 
   def winner
-    tnmt_id = self.id
-    winner_id = Score.group(:player_id).having(:tournament_id == tnmt_id).sum(:points).max_by{|k,v| v}.first
-    p Player.find(winner_id).name
+    winner = scores.select("player_id").group("player_id").order("sum(points) desc").first
+    if(winner)  
+      p Player.find(winner.player_id).name
+    else
+      return nil
+    end
   end
 
   def top_three

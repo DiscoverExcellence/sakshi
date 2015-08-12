@@ -1,0 +1,12 @@
+.modal.fade#confirmModal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button{'type': "button", 'class': "close", 'data-dismiss': "modal", 'aria-label': "Close"}
+          %span{'aria-hidden':"true"}
+        %h4{'class': "modal-title"} Model Title
+      .model-body
+        %p Are You Sure?
+      .model-footer
+        %button{'type': "button", 'class': "btn btn-default", 'data-dismiss':"modal"} No
+        %a{id:"delete_modal_link", :"data-method" => :delete, type: "button", href: "#{url}", class: "btn btn-primary"} Yes

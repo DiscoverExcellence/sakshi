@@ -1,10 +1,15 @@
-%tr
+%tr.txt1-color
   %td
     = game.name
   %td
     = link_to "Show Details", game_path(game), color: "black"
+  %td
     - if can? :manage, game
       = link_to "Edit", edit_game_path(game)
+  %td
+    - if can? :manage, game
       = link_to "Delete", "#confirmModal" , 'data-toggle': "modal", class: 'delete_link', "data-id": game.id
+  %td   
     = link_to "List Individual Match", game_matches_path(game)
+  %td
     = link_to "List Tournaments", game_tournaments_path(game)

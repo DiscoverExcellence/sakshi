@@ -1,46 +1,75 @@
 = render "/shared/navbar"
 .container
   .row-marketing
-    .col-lg-8
-      .jumbotron
+    .col-lg-10
+      .jumbotron.bg1-color
         .container
-          %table.table
+          %table.table.table-striped
             %thead
               %tr
                 %th Players
             %tbody
               - @player_list.each do |player|
                 %tr
-                  %td
+                  %td.txt-color
+                    = image_tag player.image_url(:thumb) if player.image?
                     = player.name
                   %td
                     - if (params[:tournament_id])
-                      = link_to "Show Details", game_tournament_match_player_path(@game, @tournament, @match, player)
+                      %td= link_to "Show Details", game_tournament_match_player_path(@game, @tournament, @match, player)
                       - if can? :modify, player
-                        = link_to "Edit", edit_game_tournament_match_player_path(@game, @tournament, @match, player)
-                        = link_to "Delete", game_tournament_match_player_path(@game, @tournament, @match, player), method: :delete, data: { confirm: "Are you sure?" }
+                        %td= link_to "Edit/Udpate Final Scores", edit_game_tournament_match_player_path(@game, @tournament, @match, player)
+                        %td
+                          = render partial: "/shared/modal", locals: { url: game_tournament_match_players_path }
+                          = link_to "Delete",  "#confirmModal" , 'data-toggle': "modal", class: 'delete_link', "data-id": player.id
                     - elsif (params[:match_id] && !params[:tournament_id]) 
-                      = link_to "Show Details", game_match_player_path(@game, @match, player)
+                      %td= link_to "Show Details", game_match_player_path(@game, @match, player)
                       - if can? :modify, player
-                        = link_to "Edit", edit_game_match_player_path(@game, @match, player)
-                        = link_to "Delete", game_match_player_path(@game, @match, player), method: :delete, data: { confirm: "Are you sure?" }
+                        %td= link_to "Edit/Update Final Scores", edit_game_match_player_path(@game, @match, player)
+                        %td 
+                          = render partial: "/shared/modal", locals: { url: game_match_players_path }
+                          = link_to "Delete", "#confirmModal" , 'data-toggle': "modal", class: 'delete_link', "data-id": player.id
                     - else 
-                      = link_to "Show Details", player_path(player)
+                      %td= link_to "Show Details", player_path(player)
                       - if can? :modify, player
-                        = link_to "Edit", edit_player_path(player)
-                        = link_to "Delete", player_path(player), method: :delete, data: { confirm: "Are you sure?" }
-    .col-lg-4
+                        %td= link_to "Edit", edit_player_path(player)
+                        %td
+                          = render partial: "/shared/modal", locals: { url: players_path }
+                          = link_to "Delete", "#confirmModal" , 'data-toggle': "modal", class: 'delete_link', "data-id": player.id
+          =will_paginate @player_list, renderer: BootstrapPagination::Rails
+    .col-lg-2
       .container 
         .center
+          %br
+          %br
           = image_tag("new_game.jpg" , class: "img-circle", width: "200", height: "200")
           .center
             - if can? :assign, Player
               %h3 Enter a new player
               - if (params[:tournament_id])
-                %a{ class:"btn btn-primary", href: new_game_tournament_match_player_path(@game, @tournament, @match), role:"button"} New Player
+                %a{ class:"btn btn-primary custom-color", href: new_game_tournament_match_player_path(@game, @tournament, @match), role:"button"} New Player
+                %br
+                = form_for @game, url: game_tournament_match_players_path(@game, @tournament, @match), method: :get  do |f|
+                  .form-group
+                    %br
+                    = f.label "Choose from existing Player"
+                    %br
+                    = collection_select(:player, :id, Player.all, :id, :name, prompt: true, class: "form-control")
+                    %br
+                    = f.submit("Add Player" ,class: "btn btn-primary custom-color" )
               - elsif (params[:match_id] && !params[:tournament_id])
-                %a{ class:"btn btn-primary", href: new_game_match_player_path(@game, @match), role:"button"} New Player
+                %a{ class:"btn btn-primary custom-color", href: new_game_match_player_path(@game, @match), role:"button"} New Player
+                %br
+                = form_for @game, url: game_match_players_path(@game, @match), method: :get  do |f|
+                  .form-group
+                    %br
+                    = f.label "Choose from existing Player"
+                    %br
+                    = collection_select(:player, :id, Player.all, :id, :name, prompt: true, class: "form-control")
+                    %br
+                    = f.submit("Add Player", class:"btn btn-primary custom-color" )
               -else
-                %a{ class:"btn btn-primary", href: new_player_path, role:"button"} New Player
+                %a{ class:"btn btn-primary custom-color", href: new_player_path, role:"button"} New Player
+
 
 

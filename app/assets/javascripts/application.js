@@ -1,4 +1,3 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
 // Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
@@ -19,4 +18,10 @@
 window.setTimeout(function(){
 document.getElementsByClassName("flash")[0].style.display="none"},3000)
 
+$(function(){
+  return $(document).on('click', '.delete_link', function() {
+    var _href = $('#delete_modal_link').attr("href");
+    $('#delete_modal_link').attr("href", _href + "/" + $(this).data('id')); 
+  });
+});
 

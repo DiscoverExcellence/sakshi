@@ -1,15 +1,30 @@
-=form_for player, url: url do |f|
-  =f.label "Name"
-  =f.text_field :name
-  %br
-  =f.label "Information"
-  =f.text_field :info
-  %br
-  -#-if(params[:game_id])
-  -# = f.hidden_field :game_list, value: params[:game_id]
-  -#-else
-    =f.label "list of games"
-    = collection_check_boxes(:player, :game_list, Game.all, :id, :name)
-    -# =collection_select(:player, :game_list, Game.all, :id, :name, prompt: true)
-  %br
-  =f.submit
+.row-marketing
+  .col-lg-6
+    .jumbotron.bg1-color
+      .container
+        =form_for player, url: url, html: {multipart: true} do |f|
+          .form-group 
+            = f.label "Name"
+            = f.text_field :name, class: "form-control"
+          %br
+          .form-group 
+            = f.label "Information"
+            = f.text_field :info, class: "form-control"
+          %br
+          .form-group
+            = f.label "Profile Picture"
+            = f.file_field :image
+          -#-if(params[:game_id])
+          -# = f.hidden_field :game_list, value: params[:game_id]
+          -#-else
+            =f.label "list of games"
+            = collection_check_boxes(:player, :game_list, Game.all, :id, :name)
+            =collection_select(:player, :game_list, Game.all, :id, :name, prompt: true)
+          .form-group
+            -if(params[:match_id] && params[:id])
+              = f.label "Player State"
+              %select{name: player.id, id: player.id, class: "form-control"}
+                %option{value: 1}Winner
+                %option{value: 2}Loser
+          %br
+          =f.submit( class: "btn btn-primary custom-color")

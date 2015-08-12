@@ -2,8 +2,8 @@
 
 class User < ActiveRecord::Base
 
-  has_many :tournaments, dependent: :destroy
-  has_many :players, dependent: :destroy
+  has_many :tournaments
+  has_many :players
   #enum role: [:user, :tnmt_manager, :player_manager, :admin]
   ROLES = %i[user tournament_manager player_manager admin]
   after_initialize :set_default_role, :if => :new_record?

@@ -1,29 +1,36 @@
+= render partial: "/shared/modal", locals: {url: game_tournaments_path} 
 = render "/shared/navbar"
 .container
   .row-marketing
-    .col-lg-8
-      .jumbotron
+    .col-lg-10
+      .jumbotron.bg1-color
         .container
-          %table.table
+          %table.table.table-striped
             %thead
               %tr
                 %th Tournaments
+                %th Winner
             %tbody
               - @tournament_list.each do |tournament|
-                %tr
+                %tr.txt3-color
+                  %td= tournament.name
+                  %td= tournament_winner(tournament)
+                  %td= link_to "Show Details", game_tournament_path(@game, tournament)
                   %td
-                    = tournament.name
-                  %td
-                    = link_to "Show Details", game_tournament_path(@game, tournament)
                     - if can? :modify, tournament
                       = link_to "Edit", edit_game_tournament_path(@game, tournament)
-                      = link_to "Delete", game_tournament_path(@game, tournament), method: :delete, data: { confirm: "Are you sure?" }
-                    = link_to "List Matches", game_tournament_matches_path(@game, tournament)
-    .col-lg-4
+                  %td
+                    - if can? :modify, tournament
+                      = link_to "Delete", "#confirmModal" , 'data-toggle': "modal", class: 'delete_link', "data-id": tournament.id
+                  %td= link_to "List Matches", game_tournament_matches_path(@game, tournament)
+          =will_paginate @tournament_list, renderer: BootstrapPagination::Rails
+    .col-lg-2
       .container 
         .center
+          %br
+          %br
           = image_tag("new_game.jpg" , class: "img-circle", width: "200", height: "200")
           .center
             - if can? :assign, Tournament
               %h3 Enter a new tournament
-              %a{ class:"btn btn-primary", href: new_game_tournament_path(@game), role:"button"} New Tournament
+              %a{ class:"btn btn-primary custom-color", href: new_game_tournament_path(@game), role:"button"} New Tournament

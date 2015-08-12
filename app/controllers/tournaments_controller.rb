@@ -8,7 +8,7 @@ class TournamentsController < ApplicationController
 
   def index
     @game = Game.find(params[:game_id])
-    @tournament_list = @game.tournaments
+    @tournament_list = @game.tournaments.paginate(:page => params[:page], :per_page => 5)
   end
 
   def create
@@ -45,6 +45,7 @@ class TournamentsController < ApplicationController
 
   def destroy
     @tournament_delete = Tournament.destroy(params[:id])
+    redirect_to game_tournaments_path
   end
 
   def allowed_params

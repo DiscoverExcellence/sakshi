@@ -1,43 +1,56 @@
 = render "/shared/navbar"
 .container
   .row-marketing
-    .col-lg-8
-      .jumbotron
+    .col-lg-10
+      .jumbotron.bg1-color
         .container
-          %table.table
+          %table.table.table-striped
             %thead
               %tr
                 %th Matches
+                %th Played On
+                %th Winner
             %tbody
               - @match_list.each do |match|
-                %tr
-                  %td
-                    = match.venue
-                  %td
-                    = match_date(match.played_on)
+                %tr.txt2-color
+                  %td= match.venue
+                  %td= match_date(match.played_on)
+                  %td= match_winner(match)
                   %td
                     - if (params[:game_id] && params[:tournament_id])
-                      = link_to "Show Details", game_tournament_match_path(@game, @tournament, match)
-                      - if can? :manage, match
-                        = link_to "Edit", edit_game_tournament_match_path(@game, @tournament, match)
-                      = link_to "List Players", game_tournament_match_players_path(@game, @tournament, match)
+                      %td= link_to "Show Details", game_tournament_match_path(@game, @tournament, match)
+                      %td
+                        - if can? :manage, match
+                          = link_to "Edit", edit_game_tournament_match_path(@game, @tournament, match)
+                      %td   
+                        - if can? :manage, match
+                          = render partial: "/shared/modal",locals: { url: game_tournament_matches_path }
+                          = link_to "Delete", "#confirmModal" , 'data-toggle': "modal", class: 'delete_link', "data-id": match.id
+                      %td= link_to "List Players", game_tournament_match_players_path(@game, @tournament, match)
                     - else
-                      = link_to "Show Details", game_match_path(@game,match)
-                      - if can? :manage, match
-                        = link_to "Edit", edit_game_match_path(@game,match)
-                      = link_to "List Players", game_match_players_path(@game,match)
-                      -#  = link_to "Delete", url: game_match(@game,match), method: :delete, data: { confirm: "Are you sure?" }
-    .col-lg-4
+                      %td= link_to "Show Details", game_match_path(@game,match)
+                      %td  
+                        - if can? :manage, match
+                          = link_to "Edit", edit_game_match_path(@game,match)
+                      %td    
+                        - if can? :manage, match
+                          = render partial: "/shared/modal",locals: {  url: game_matches_path  }
+                          = link_to "Delete", "#confirmModal" , 'data-toggle': "modal", class: 'delete_link', "data-id": match.id
+                      %td= link_to "List Players", game_match_players_path(@game,match)
+          =will_paginate @match_list, renderer: BootstrapPagination::Rails
+    .col-lg-2
       .container 
         .center
+          %br
+          %br
           = image_tag("new_game.jpg" , class: "img-circle", width: "200", height: "200")
           .center
             - if can? :manage, Match
               %h3 Enter a new Match
               - if (params[:game_id] && params[:tournament_id])
-                %a{ class:"btn btn-primary", href: new_game_tournament_match_path(@game, @tournament), role:"button"} New Match
+                %a{ class:"btn btn-primary custom-color", href: new_game_tournament_match_path(@game, @tournament), role:"button"} New Match
               - else  
-                %a{ class:"btn btn-primary", href: new_game_match_path(@game), role:"button"} New Match
+                %a{ class:"btn btn-primary custom-color", href: new_game_match_path(@game), role:"button"} New Match
 
 
 -#= render "/shared/navbar"

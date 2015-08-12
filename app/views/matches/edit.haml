@@ -1,4 +1,4 @@
-%h3 Edit the match
+%h3{align: "center"} Edit the match
 - if(params[:game_id] && params[:tournament_id])
   = render "form", {match: @match, game: @game, tournament: @tournament, url: game_tournament_match_path(@game, @tournament, @match)}
 - else   

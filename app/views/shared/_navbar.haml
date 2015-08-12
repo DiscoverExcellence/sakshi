@@ -1,14 +1,23 @@
-.navbar.navbar-default
+.navbar.navbar-inverse.navbar-fixed-top.custom-color
   .container-fluid
     .navbar-header
+      %button{type:"button", class:"navbar-toggle collapsed", 'data-toggle': "collapse", 'data-target': "#navbar", 'aria-expanded': "false", 'aria-controls': "navbar"}
+        %span{ class: "sr-only"} Toggle navigation
+        %span{ class: "icon-bar"}
+        %span{ class: "icon-bar"}
+        %span{ class: "icon-bar"}
       %a{ class: "navbar-brand", href: "#"}
-        %ul{class: "nav navbar-nav"}
+        %ul{ class: "nav navbar-nav"}
           %li 
             %a{ href:"/games"}Home
           %li
             %a{ href: players_path }Players
-          %li
-            = link_to('Sign Out', destroy_user_session_path, :method => :delete)
+    %ul{ class: "nav navbar-nav navbar-right"}
+      %li
+        = link_to('Sign Out', destroy_user_session_path, :method => :delete)
+%br
+%br
 -#        %li 
+%br
 -#           %a{ href:"#contact"}Contact Us
 

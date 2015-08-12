@@ -1,4 +1,6 @@
 %h3 Details of the player
+= image_tag @player_details.image_url if @player_details.image?
+%br
 %p 
   Description - 
   = @player_details.name

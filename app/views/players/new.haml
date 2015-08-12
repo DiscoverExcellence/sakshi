@@ -1,4 +1,4 @@
-%h3 Create new Player
+%h3{align: "center"} Create new Player
 - if (params[:tournament_id])
   = render "form", {player: @player, match: @match, game: @game, tournament: @tournament, url: game_tournament_match_players_path(@game, @tournament, @match)}
 - elsif (params[:match_id] && !params[:tournament_id])

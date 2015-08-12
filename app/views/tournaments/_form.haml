@@ -1,19 +1,25 @@
-=nested_form_for tournament, url: url  do |f|
-  =f.label "Name"
-  =f.text_field :name
-  %br
-  %div#add_more
-    =f.fields_for :matches do |m|
-      %h3 Match details 
-      =m.label "Venue"
-      =m.text_field :venue
-      %br
-      =m.label "Date of Match"
-      =m.text_field :played_on
-      =m.link_to_remove "remove match"
-      =m.hidden_field :game_id, value: params[:game_id]
-  %br
-  %p
-    =f.link_to_add("Add More", :matches, class: "btn btn-primary")
-  %br
-  =f.submit
+.row-marketing
+  .col-lg-6
+    .jumbotron.bg1-color
+      .container
+        =nested_form_for tournament, url: url  do |f|
+          .form-group
+            =f.label "Name"
+            =f.text_field :name, class: "form-control"
+          %br
+          %div#add_more
+            .form-group
+              =f.fields_for :matches do |m|
+                %h3 Match details 
+                =m.label "Venue"
+                =m.text_field :venue, class: "form-control"
+                %br
+                =m.label "Date of Match"
+                =m.text_field :played_on, class: "form-control"
+                =m.link_to_remove "remove match"
+                =m.hidden_field :game_id, value: params[:game_id]
+          %br
+          %p
+            =f.link_to_add("Add More", :matches, class: "btn btn-primary custom-color")
+          %br
+          =f.submit( class:"btn btn-primary custom-color" )

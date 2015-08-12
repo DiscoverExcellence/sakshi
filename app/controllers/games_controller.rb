@@ -21,7 +21,7 @@ class GamesController < ApplicationController
   end
 
   def index
-    @game = Game.all
+    @games = Game.all.paginate(:page => params[:page], :per_page => 5)
   end
 
   def create
@@ -53,6 +53,7 @@ class GamesController < ApplicationController
 
   def destroy
     @game = Game.destroy(params[:id])
+    redirect_to games_path
   end
 
   def allowed_params

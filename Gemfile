@@ -40,6 +40,17 @@ gem 'nested_form', '~> 0.3.2'
 #cancancan for authorization
 gem 'cancancan', '~> 1.12.0'
 
+#carrier wave image uploader
+gem 'carrierwave', '~> 0.10.0'
+
+#mini_magick for thumb 
+gem 'mini_magick', '~> 4.2.10'
+
+#will paginate for pagination
+gem 'will_paginate', '~> 3.0.7'
+
+#bootstrap will paginate
+gem 'will_paginate-bootstrap'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

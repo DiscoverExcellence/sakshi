@@ -1,4 +1,4 @@
-%h3 Create new Match
+%h3{align: "center"} Create new Match
 - if(params[:game_id] && params[:tournament_id])
   = render "form", {match: @match, game: @game, tournament: @tournament, url: game_tournament_matches_path(@game, @tournament)}
 - else   

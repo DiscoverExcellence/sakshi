@@ -6,4 +6,12 @@ module MatchesHelper
       p "not available"
     end
   end
+
+  def match_winner(match)
+    if(match.winner)
+      match.winner
+    else
+      p "to be played"
+    end
+  end
 end

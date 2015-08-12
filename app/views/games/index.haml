@@ -1,15 +1,4 @@
-.modal.fade#confirmModal
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button{'type': "button", 'class': "close", 'data-dismiss': "modal", 'aria-label': "Close"}
-          %span{'aria-hidden':"true"}
-        %h4{'class': "modal-title"} Model Title
-      .model-body
-        %p Are You Sure?
-      .model-footer
-        %button{'type': "button", 'class': "btn btn-default", 'data-dismiss':"modal"} No
-        %a{id:"delete_modal_link", :"data-method" => :delete, type: "button", href:"", class: "btn btn-primary"} Yes
+= render partial: "shared/modal", locals: {url: games_path }
 = render "shared/navbar"
 .container  
   %h2 Gaming Zone
@@ -18,21 +7,22 @@
   %p and win points!!
 .container
   .row-marketing
-    .col-lg-8
-      .jumbotron
+    .col-lg-10
+      .jumbotron.bg1-color
         .container
-          %table.table
+          %table.table.table-striped
             %thead
               %tr
                 %th List of Games
             %tbody    
-              =render @game
-    .col-lg-4
+              = render @games
+          = will_paginate @games, renderer: BootstrapPagination::Rails
+    .col-lg-2
       .container 
         .center
-          = image_tag("new_game.jpg" , class: "img-circle", width: "270", height: "270")
+          = image_tag("new_game.jpg" , class: "img-circle", width: "200", height: "200")
           .center
             - if can? :manage, Game
-              %h3 Enter a new game to play
-              %a{ class:"btn btn-primary", href: "/games/new", role:"button"} New Game
+              %h4 Enter a new game to play
+              %a{ class:"btn btn-primary custom-color", href: "/games/new", role:"button"} New Game
 

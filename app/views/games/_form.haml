@@ -1,22 +1,28 @@
 =game.errors.full_messages if(!game.errors.empty?)
-=nested_form_for(game) do |f|
-  =f.label "Name"
-  =f.text_field :name
-  %br
-  =f.label "Description"
-  =f.text_field :description
-  %br
-  =f.label "Scoring Points"
-  =f.text_field :scoring_pts
-  %br
-  -#%div#add_more
-    =f.fields_for :matches do |m|
-      %h3 Match details 
-      =m.label "Venue"
-      =m.text_field :venue
-  -#%br
-  -#%p 
-    =f.link_to_add("Add More", :matches, class: "btn btn-primary")
-  -#%br
-  =f.submit
-
+.row-marketing
+  .col-lg-6
+    .jumbotron.bg1-color
+      .container
+        =nested_form_for(game) do |f|
+          .form-group
+            =f.label "Name"
+            =f.text_field :name, class: "form-control"
+          %br
+          .form-group
+            =f.label "Description"
+            =f.text_field :description, class: "form-control"
+          %br
+          .form-group
+            =f.label "Scoring Points"
+            =f.text_field :scoring_pts, class: "form-control"
+          %br
+          -#%div#add_more
+            =f.fields_for :matches do |m|
+              %h3 Match details 
+              =m.label "Venue"
+              =m.text_field :venue
+          -#%br
+          -#%p 
+            =f.link_to_add("Add More", :matches, class: "btn btn-primary")
+          -#%br
+          =f.submit( class: "btn btn-primary custom-color" )
